@@ -1,0 +1,7 @@
+feature,mean,median,mode,outliers,skewness,skewness_type
+X1,4.333333333333333,5.0,5,[1],-1.0584677419354833,highly negatively skewed
+X2,2.5317460317460316,3.0,3,[5],0.270999638359618,approximately symmetrical
+X3,3.3095238095238093,3.0,3,[1],-0.19953604195426672,approximately symmetrical
+X4,3.746031746031746,4.0,4,[1],-0.42223960472556293,approximately symmetrical
+X5,3.6507936507936507,4.0,4,[1],-0.6999992813112076,moderately negatively skewed
+X6,4.253968253968254,4.0,5,"[1, 2]",-0.9575897324514261,moderately negatively skewed
