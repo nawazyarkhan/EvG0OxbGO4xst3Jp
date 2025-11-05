@@ -113,16 +113,23 @@ happycustomer/
 ## Setup and Installation
 
 1. Ensure Python 3.10 is installed.
-2. Install required dependencies:
+2. Using conda, environment can be created as follows:
    ```
-   pip install pandas numpy matplotlib seaborn scikit-learn xgboost
+   conda env create -f environment.yml
    ```
-3. Clone or download the project.
-4. Place the dataset in `data/` directory.
+3. Or Use the following installation procedure:
+   
+   ```
+   conda create -n env_name python=3.10
+   conda activate  env_name
+   pip install -r requirements.txt
+   ```
+4. Clone or download the project.
+5. Place the dataset in `data/` directory.
 
 ## Usage
 
-- Open `src/main.ipynb` or `happycustomer.ipynb` in Jupyter Notebook.
+- Open `src/HappyCustomer.ipynb` in Jupyter Notebook.
 - Run cells sequentially to reproduce EDA, visualizations, and modeling.
 - Outputs (CSVs and PNGs) will be saved to `reports/` directory.
 
