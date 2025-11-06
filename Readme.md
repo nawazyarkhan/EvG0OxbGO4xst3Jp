@@ -20,6 +20,28 @@ The dataset is sourced from `ACME-HappinessSurvey2020.csv` and includes the foll
 
 All features are ordinal, typically ranging from 1 to 5, with no missing values in the dataset.
 
+## Project Structure
+
+```
+happycustomer/
+├── data/
+│   └── ACME-HappinessSurvey2020.csv  # Original dataset
+├── reports/
+│   ├── feature_stats.csv  # Basic feature statistics
+│   ├── feature_stats_with_outliers.csv  # Stats with outliers
+│   ├── feature_stats_with_outliers_and_skewness.csv  # Stats with outliers and skewness
+│   └── figures/  # Generated plots
+│       ├── correlation_matrix.png
+│       ├── customer_types.png
+│       ├── feature_importance.png
+│       └── X1_distribution.png to X6_distribution.png
+├── setup/requirements.txt  # python dependencies
+├── environment.yml         # Conda environment file
+├── src/
+│   └── HappyCustomer.ipynb  # Main analysis notebook with EDA and modeling
+└── Readme.md  # This file
+```
+
 ## Exploratory Data Analysis (EDA) Summary
 
 The EDA performed in `src/main.ipynb` includes the following steps and insights:
@@ -87,28 +109,6 @@ The EDA performed in `src/main.ipynb` includes the following steps and insights:
   - F1 Score: ~0.57.  
 - LogisticRegression with preprocessing: Lower performance compared to others.
 
-
-## Project Structure
-
-```
-happycustomer/
-├── data/
-│   └── ACME-HappinessSurvey2020.csv  # Original dataset
-├── reports/
-│   ├── feature_stats.csv  # Basic feature statistics
-│   ├── feature_stats_with_outliers.csv  # Stats with outliers
-│   ├── feature_stats_with_outliers_and_skewness.csv  # Stats with outliers and skewness
-│   └── figures/  # Generated plots
-│       ├── correlation_matrix.png
-│       ├── customer_types.png
-│       ├── feature_importance.png
-│       └── X1_distribution.png to X6_distribution.png
-├── setup/requirements.txt  # python dependencies
-├── environment.yml         # Conda environment file
-├── src/
-│   └── HappyCustomer.ipynb  # Main analysis notebook with EDA and modeling
-└── Readme.md  # This file
-```
 
 ## Setup and Installation
 
