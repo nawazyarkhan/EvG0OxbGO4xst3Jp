@@ -1,152 +1,162 @@
-# customer behaviour prediction - delivery / logistics domain 
+# Customer Behaviour Prediction — Delivery / Logistics Domain
 
-This project analyzes customer happiness survey data from ACME, a logistics and delivery startup, to predict whether customers are happy or unhappy based on various service-related features. The goal is to identify key factors influencing customer satisfaction and inform operational improvements to enhance customer experience.
+**Apziva — Customer Happiness Prediction**
 
-## Problem Statement
+> Predicting customer satisfaction for a delivery & logistics startup (ACME) using an ordinal survey dataset. This repository contains exploratory data analysis, feature engineering, model training and evaluation, and artifacts (reports and figures) that demonstrate end-to-end work from raw data to actionable insights.
 
-The dataset contains feedback from customers about deliveries. We aim to predict customer happiness (target variable Y: 0 = unhappy, 1 = happy) using input features gathered from surveys. This analysis helps in taking necessary actions to improve services and ensure customer satisfaction.
+---
 
-## Data Description
+## 📌 Project Summary
 
-The dataset is sourced from `ACME-HappinessSurvey2020.csv` and includes the following variables:
+This project analyzes the `ACME-HappinessSurvey2020.csv` dataset to build a classifier that predicts whether a customer is **happy (Y=1)** or **unhappy (Y=0)** following a delivery. All input features (X1–X6) are ordinal survey items (1–5) capturing delivery punctuality, item correctness, completeness of order, price perception, courier satisfaction and app usability.
 
-- **Y**: Target attribute (0 = unhappy, 1 = happy customers)
-- **X1**: My order was delivered on time (ordinal scale)
-- **X2**: Contents of my order was as I expected (ordinal scale)
-- **X3**: I ordered everything I wanted to order (ordinal scale)
-- **X4**: I paid a good price for my order (ordinal scale)
-- **X5**: I am satisfied with my courier (ordinal scale)
-- **X6**: The app makes ordering easy for me (ordinal scale)
+The goals were:
+- Thorough Exploratory Data Analysis (EDA) and data-quality checks.
+- Feature engineering and outlier/skewness analysis.
+- Train and compare multiple classifiers (Random Forest, Logistic Regression, k-NN).
+- Identify the most important drivers of customer happiness.
+- Produce clear, reproducible artifacts (CSV reports and plots) for stakeholders.
 
-All features are ordinal, typically ranging from 1 to 5, with no missing values in the dataset.
+---
 
-## Project Structure
+## 📁 Repository Structure
 
 ```
 happycustomer/
 ├── data/
-│   └── ACME-HappinessSurvey2020.csv  # Original dataset
+│   └── ACME-HappinessSurvey2020.csv    # Original dataset (not tracked due to size/privacy)
 ├── reports/
-│   ├── feature_stats.csv  # Basic feature statistics
-│   ├── feature_stats_with_outliers.csv  # Stats with outliers
-│   ├── feature_stats_with_outliers_and_skewness.csv  # Stats with outliers and skewness
-│   └── figures/  # Generated plots
+│   ├── feature_stats.csv
+│   ├── feature_stats_with_outliers.csv
+│   ├── feature_stats_with_outliers_and_skewness.csv
+│   └── figures/
 │       ├── correlation_matrix.png
 │       ├── customer_types.png
 │       ├── feature_importance.png
-│       └── X1_distribution.png to X6_distribution.png
-├── setup/requirements.txt  # python dependencies
-├── environment.yml         # Conda environment file
+│       └── X1_distribution.png ... X6_distribution.png
+├── setup/
+│   └── requirements.txt
+├── environment.yml
 ├── src/
-│   └── HappyCustomer.ipynb  # Main analysis notebook with EDA and modeling
-└── Readme.md  # This file
+│   └── HappyCustomer.ipynb            # Main analysis notebook (EDA + modeling)
+└── Readme.md                          # Original short README
 ```
 
-## Exploratory Data Analysis (EDA) Summary
+---
 
-The EDA performed in `src/main.ipynb` includes the following steps and insights:
+## 🔎 Data Description
 
-### Data Overview
-- Dataset loaded into a Pandas DataFrame.
-- Basic info: 126 rows, 7 columns (X1-X6, Y).
-- Descriptive statistics: Mean, median, mode calculated for each feature X1-X6 and saved to `reports/feature_stats.csv`.
+The dataset contains 126 observations and 7 columns:
+- **Y** — target (0 = unhappy, 1 = happy)
+- **X1** — My order was delivered on time (1–5)
+- **X2** — Contents of my order was as I expected (1–5)
+- **X3** — I ordered everything I wanted to order (1–5)
+- **X4** — I paid a good price for my order (1–5)
+- **X5** — I am satisfied with my courier (1–5)
+- **X6** — The app makes ordering easy for me (1–5)
 
-### Missing Values
-- No null values found in the dataset.
+> Note: All features are ordinal with no missing values in the provided dataset.
 
-### Customer Distribution
-- Bar plot showing counts of happy (Y=1) and unhappy (Y=0) customers.
-- Happy customers: 69
-- Unhappy customers: 57
-- Plot saved as `reports/figures/customer_types.png`.
+---
 
-### Correlation Analysis
-- Correlation matrix heatmap generated for all variables.
-- Key observations:
-  - X1 & X5 are closely related.
-  - X1 & X6 are closely related.
-  - X3 & X5 are closely related.
-- Plot saved as `reports/figures/correlation_matrix.png`.
+## 🧭 Project Flow — Step by Step
 
-### Feature Distributions
-- KDE plots for each feature (X1-X6) comparing distributions for happy vs. unhappy customers.
-- Plots saved as `reports/figures/{feature}_distribution.png` for each feature.
+1. **Data loading & sanity checks**
+   - Load CSV into a pandas DataFrame, inspect schema and basic statistics.
+   - Verify there are no missing values and confirm value ranges for ordinal items.
 
-### Outlier Detection
-- Boxplots for each feature to visualize outliers.
-- Outliers detected using IQR method for each feature.
-- Outlier details merged with feature stats and saved to `reports/feature_stats_with_outliers.csv`.
+2. **Exploratory Data Analysis (EDA)**
+   - Class balance check (happy vs unhappy).
+   - Distribution plots (KDE / histograms) for each feature split by target.
+   - Correlation matrix and heatmap to identify strongly related features.
+   - Outlier detection (IQR method) and skewness measurements.
+   - Save stats and figures to `reports/`.
 
-### Skewness Analysis
-- Skewness calculated for each feature:
-  - X1: Highly negatively skewed
-  - X2: Approximately symmetrical
-  - X3: Approximately symmetrical
-  - X4: Approximately symmetrical
-  - X5: Moderately negatively skewed
-  - X6: Moderately negatively skewed
-- Skewness details merged with feature stats and saved to `reports/feature_stats_with_outliers_and_skewness.csv`.
+3. **Feature analysis & selection**
+   - Evaluate relationships between X1–X6 and the target.
+   - Identify redundant or low-importance features (X6 identified as least important).
 
-### Conclusions from EDA
-- Strong correlations between X1-X6, X3-X5, and X5-X6.
-- Features X2, X3, X4 are symmetrical; X1 is highly negatively skewed; X5 and X6 are moderately negatively skewed.
+4. **Modeling**
+   - Train and compare several classifiers:
+     - RandomForestClassifier
+     - LogisticRegression (with PowerTransformer + StandardScaler)
+     - KNeighborsClassifier
+   - Use an 80/20 train-test split and evaluate via accuracy and F1-score.
+   - Use feature importance (Random Forest) and logistic coefficients for interpretability.
 
-## Modeling and Results
+5. **Evaluation & reporting**
+   - Report results (accuracy/F1) and visualize feature importance.
+   - Save figures and CSV summary reports under `reports/`.
 
-### Feature Importance
-- RandomForestClassifier used to assess feature importance.
-- Least important feature: X6.
-- Plot saved as `reports/figures/feature_importance.png`.
+6. **Conclusions & recommendations**
+   - Remove low-importance features to simplify the model (e.g., X6).
+   - Prioritize operational activities that increase features strongly correlated with happiness.
 
-### Model Training and Evaluation
-- Models tested: RandomForestClassifier, LogisticRegression (with PowerTransformer and StandardScaler), KNeighborsClassifier.
-- Train-test split: 80-20.
-- After removing X6 (least important), RandomForest achieved: 
-  - Accuracy: ~0.73
-  - F1 Score: ~0.75
-- KNN: 
-  - Accuracy: ~0.65 
-  - F1 Score: ~0.57.  
-- LogisticRegression with preprocessing: Lower performance compared to others.
+---
+
+## 🧾 Key Results (Summary)
+
+- Dataset: 126 rows, 7 columns; class split — **69 happy, 57 unhappy**.
+- Correlations observed: X1 & X5, X1 & X6, X3 & X5.
+- Skewness: X1 highly negatively skewed; X5 & X6 moderately negatively skewed.
+- Feature importance (Random Forest): **X6 was least important**.
+- Best performing model (after removing X6): **Random Forest** —
+  - **Accuracy ≈ 0.73**
+  - **F1 Score ≈ 0.75**
+- KNN and Logistic Regression produced lower performance on this dataset.
+
+---
+
+## 🛠 Reproducibility — Setup & Run
+
+**Recommended:** use the provided conda environment.
+
+```bash
+# Create environment from shipped file
+conda env create -f environment.yml
+conda activate happycustomer
+
+# OR using pip
+conda create -n happycustomer python=3.10 -y
+conda activate happycustomer
+pip install -r setup/requirements.txt
+```
+
+**Run the analysis**
+1. Place `ACME-HappinessSurvey2020.csv` inside the `data/` folder.
+2. Open the notebook `src/HappyCustomer.ipynb` and run cells sequentially.
+3. Generated outputs (figures and CSV summaries) will be saved to `reports/`.
+
+---
+
+## 🧠 Technical Decisions & Notes
+
+- **Why Random Forest?** — Robust to small datasets, handles correlated features well, and provides feature importance measures that are easy to interpret for stakeholders.
+- **Why remove X6?** — Empirical feature importance ranking showed X6 contributed least to predictive power; removing it simplified the model and improved performance slightly.
+- **Imbalanced classes** — Class distribution is fairly balanced; standard metrics (accuracy, F1) were used. If imbalance grows, consider stratified sampling, class weighting, or resampling.
+
+---
+
+## 📣 Recommendations for Business Stakeholders
+
+- Focus on improving the operational drivers that most strongly influence satisfaction (e.g., delivery timeliness and courier experience).
+- Use the model to prioritize interventions (e.g., follow-up calls, targeted quality checks) for customers with low predicted satisfaction.
+- Collect additional contextual features (e.g., delivery distance, order size, courier ID) to improve model predictive power.
+
+---
 
 
-## Setup and Installation
 
-1. Ensure Python 3.10 is installed.
-2. Using conda, environment can be created as follows:
-   ```
-   conda env create -f environment.yml
-   ```
-3. Or Use the following installation procedure:
-   
-   ```
-   conda create -n env_name python=3.10
-   conda activate  env_name
-   pip install -r requirements.txt
-   ```
-4. Clone or download the project.
-5. Place the dataset in `data/` directory.
+**What I contributed in this project:**
+- Performed end-to-end analysis: EDA, feature engineering, model development, and interpretability reporting.
+- Produced reproducible artifacts (notebooks, reports, and visualizations) that are ready for stakeholder consumption.
+- Made clear technical choices (model selection, preprocessing, feature reduction) and documented the reasoning and results.
 
-## Usage
+**Skills demonstrated:**
+- Data wrangling and EDA with pandas
+- Statistical analysis (skewness, outliers, correlations)
+- Supervised machine learning (scikit-learn): training, evaluation and interpretation
+- Reproducible research: environment management and clear reporting
+- Communication: clear visualizations and business-focused recommendations
 
-- Open `src/HappyCustomer.ipynb` in Jupyter Notebook.
-- Run cells sequentially to reproduce EDA, visualizations, and modeling.
-- Outputs (CSVs and PNGs) will be saved to `reports/` directory.
 
-## Dependencies
-
-- pandas
-- numpy
-- matplotlib
-- seaborn
-- scikit-learn
-- xgboost
-
-## Results and Insights
-
-- Key predictors of happiness: Timely delivery (X1), courier satisfaction (X5), app ease (X6).
-- Removing X6 improved model performance slightly.
-- RandomForest performed best among tested models.
-- Recommendations: Focus on improving delivery times(X1), satisfactory courier services(X5), and app usability to boost customer happiness (X6).
-
-For further details, refer to the notebook (HappyCusotmer.ipynb) and generated reports.
