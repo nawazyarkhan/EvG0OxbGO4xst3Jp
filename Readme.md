@@ -1,4 +1,4 @@
-# Happy Customer Prediction
+# customer behaviour prediction - delivery / logistics domain 
 
 This project analyzes customer happiness survey data from ACME, a logistics and delivery startup, to predict whether customers are happy or unhappy based on various service-related features. The goal is to identify key factors influencing customer satisfaction and inform operational improvements to enhance customer experience.
 
